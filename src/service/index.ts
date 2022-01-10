@@ -78,10 +78,11 @@ function service(app: Express) {
           error: "",
         });
       } catch (error) {
-          console.log("Eror occurred in outbound")
+          console.error("Eror occurred in outbound")
         return res.status(500).json({
           message: "",
           error: "Unknown failure",
+          msg:error
         });
       }
     }

@@ -35,7 +35,7 @@ function service(app) {
                     account_id: id,
                     number: from,
                 },
-            });
+            }).catch(error => { throw error; });
             if (!phone_number) {
                 return res.status(404).json({
                     message: "",
@@ -80,9 +80,11 @@ function service(app) {
             });
         }
         catch (error) {
+            console.error("Eror occurred in outbound");
             return res.status(500).json({
                 message: "",
                 error: "Unknown failure",
+                msg: error
             });
         }
     }));
