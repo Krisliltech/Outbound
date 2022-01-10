@@ -5,6 +5,8 @@ import redisConnect from "../redis";
 import authenticate from "../auth";
 
 const prisma = new PrismaClient();
+
+
 const redisClient = redisConnect();
 
 function service(app: Express) {
@@ -28,7 +30,7 @@ function service(app: Express) {
             account_id: id,
             number: from,
           },
-        });
+        }).catch(error=> {throw error});
 
         if (!phone_number) {
           return res.status(404).json({
@@ -76,6 +78,7 @@ function service(app: Express) {
           error: "",
         });
       } catch (error) {
+          console.log("Eror occurred in outbound")
         return res.status(500).json({
           message: "",
           error: "Unknown failure",
